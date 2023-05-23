@@ -16,6 +16,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 const db = require("./app/models");
+const Role = db.role;
 db.sequelize.sync()
   .then(() => {
     console.log("Synced db.");
@@ -35,6 +36,9 @@ app.get("/", (req, res) => {
   res.json({ message: "Welcome to application." });
 });
 
+//ไว้ดึง path รูป
+app.use("/uploads", express.static("uploads"));
+app.use(express.json());
 //require("./app/routes/turorial.routes")(app);
 require('./app/routes/auth.routes')(app);
 require('./app/routes/user.routes')(app);
